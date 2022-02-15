@@ -46,7 +46,8 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=southamerica-east1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=aiq'
-
+options:
+  logging: CLOUD_LOGGING_ONLY
 
 substitutions:
   _PROJECT_ID: aiq-test
