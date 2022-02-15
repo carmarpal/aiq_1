@@ -39,14 +39,14 @@ paths:
         200:
           description: "plants"
           schema:
-            $ref: "#/definitions/process"
+            $ref: "#/definitions/prediction"
       parameters:
       - description: "Number and State"
         in: body
         name: message
         required: true
         schema:
-          $ref: "#/definitions/process"
+          $ref: "#/definitions/prediction"
       security:
       - api_key: []
   "/auth/info/googlejwt":
@@ -79,7 +79,7 @@ paths:
       - google_id_token: []
 
 definitions:
-  process:
+  prediction:
     type: "object"
     properties:
       message:
