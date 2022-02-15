@@ -8,7 +8,7 @@ RUN mkdir $APP_HOME && adduser --system --home /home/python python \
 WORKDIR $APP_HOME
 
 ADD requirement*.txt $APP_HOME
-ADD aiq_1 $APP_HOME
+ADD app $APP_HOME
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc libev-dev python3.7-dev git \
     && rm -rf /var/lib/apt/lists/* \
