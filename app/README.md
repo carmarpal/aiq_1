@@ -376,7 +376,7 @@ no need to fill this if you use the `endpoint/endpoint_config.sh` commands:
 ```bash
 # Environment variables to omit PROJECT_ID
 export PROJECT_ID=$(gcloud config get-value project)
-export SERVICE_NAME="ml-model"
+export SERVICE_NAME="aiq-1"
 export SERVICE_IP="SERVICE_IP"
 
 export ENDPOINTS_SERVICE_NAME="${SERVICE_NAME}.endpoints.${PROJECT_ID}.cloud.goog"
@@ -538,13 +538,7 @@ You'll need to activate some Google Cloud APIs before go through this article. A
 click_ or using the SDK command:
 
 ```bash
-gcloud services enable container.googleapis.com \
-    cloudbuild.googleapis.com \
-    sourcerepo.googleapis.com \
-    containeranalysis.googleapis.com \
-    servicemanagement.googleapis.com \
-    servicecontrol.googleapis.com \
-    endpoints.googleapis.com
+gcloud services enable container.googleapis.com  cloudbuild.googleapis.com sourcerepo.googleapis.com containeranalysis.googleapis.com servicemanagement.googleapis.com servicecontrol.googleapis.com endpoints.googleapis.com
 ```
 
 To work with Kubernetes, be sure that you have `kubectl` installed in you machine. Google Cloud Shell already has it.
@@ -576,16 +570,13 @@ I create my Kubernetes cluster in GKE using this simple command in Linux termina
 
 ```bash
 # define environment variables
-_CLUSTER=ml-cluster         # name
+_CLUSTER=aiq        # name
 _N_NODES=1                  # size
 _ZONE=southamerica-east1-b  # zonal cluster
 _MACHINE_TYPE=n1-highmem-2  # 2 vCPUs and 13GB vRAM
 
 # create a cluster with this specifications
-gcloud container clusters create $_CLUSTER \
-    --num-nodes $_N_NODES \
-    --machine-type $_MACHINE_TYPE \
-    --zone $_ZONE
+gcloud container clusters create $_CLUSTER --num-nodes $_N_NODES --machine-type $_MACHINE_TYPE --zone $_ZONE
 ```
 
 This command will take about 2-3 minutes to run. After that, to check if everything is up you can use the command

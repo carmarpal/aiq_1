@@ -9,7 +9,7 @@ from app.src.model.model import RequestSchema, ResponseSchema
 from app.src.service.plantsservice import PlantsService
 
 # Namespace of resource f.e in this case /default, all the routes under this ns would have /default as prefix
-ns = Namespace('top-n-plants', description='API')
+ns = Namespace('', description='API')
 log = logging.getLogger(__name__)
 
 
@@ -20,7 +20,7 @@ class server_check(Resource):
         return "OK!" + now.upper()
 
 # Blank route, so the final uri is /default
-@ns.route('/')
+@ns.route('/top-n-plants')
 class DefaultApi(Resource):
     PlantsService: PlantsService
 
