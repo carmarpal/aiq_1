@@ -50,6 +50,6 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
-  _PROJECT_ID: aiq-test
+  _PROJECT_ID: jovial-arch-341408
   _REPOSITORY: aiq-1
   _VERSION: '1.0.0'
