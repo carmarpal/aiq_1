@@ -1,0 +1,54 @@
+steps:
+  # pull the container image if it is already built
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'docker pull gcr.io/${_PROJECT_ID}/${_REPOSITORY}:latest || exit 0'
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:latest'
+      - '-t'
+      - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:${_VERSION}'
+      - '--cache-from'
+      - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:latest'
+      - '.'
+      - '--network'
+      - 'cloudbuild'
+    timeout: 1200s
+
+
+  # push the container image to Container Registry with all tags
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}'
+  # edit deployment manifest replacing PROJECT_ID and VERSION into
+  # container image address
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sed -i "s/PROJECT_ID/${_PROJECT_ID}/g" k8s/deployment.yaml && \
+        sed -i "s/REPOSITORY/${_REPOSITORY}/g" k8s/deployment.yaml && \
+        sed -i "s/VERSION/${_VERSION}/g" k8s/deployment.yaml && \
+        sed -i "s/SERVICE_NAME/ml-model/g" k8s/deployment.yaml
+  # apply k8s manifest to my cluster
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - 'k8s/'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=aiq-cluster'
+
+
+substitutions:
+  _PROJECT_ID: aiq_test
+  _REPOSITORY: aiq_1
+  _VERSION: '1.0.0'

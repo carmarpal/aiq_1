@@ -1,0 +1,12 @@
+app:
+  name: top-plants
+  health:
+    path: /health
+  threads: 5
+cloud:
+  config:
+    enabled: false
+data:
+  filename: egrid2016_data.xlsx
+  plants_sheetname: PLNT16
+  states_sheetname: ST16
