@@ -587,7 +587,7 @@ This command will take about 2-3 minutes to run. After that, to check if everyth
 Clone your new repository and enter in its folder.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git clone https://github.com/carmarpal/aiq_1.git
 cd YOUR_REPO_NAME
 ```
 

@@ -36,7 +36,7 @@ steps:
         sed -i "s/PROJECT_ID/${_PROJECT_ID}/g" k8s/deployment.yaml && \
         sed -i "s/REPOSITORY/${_REPOSITORY}/g" k8s/deployment.yaml && \
         sed -i "s/VERSION/${_VERSION}/g" k8s/deployment.yaml && \
-        sed -i "s/SERVICE_NAME/ml-model/g" k8s/deployment.yaml
+        sed -i "s/SERVICE_NAME/aiq-1-service-lb/g" k8s/deployment.yaml
   # apply k8s manifest to my cluster
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
@@ -44,11 +44,11 @@ steps:
       - '-f'
       - 'k8s/'
     env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=aiq-cluster'
+      - 'CLOUDSDK_COMPUTE_ZONE=southamerica-east1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=aiq'
 
 
 substitutions:
-  _PROJECT_ID: aiq_test
+  _PROJECT_ID: aiq-test
   _REPOSITORY: aiq_1
   _VERSION: '1.0.0'
