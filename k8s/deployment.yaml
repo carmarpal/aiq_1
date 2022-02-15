@@ -27,7 +27,7 @@ spec:
       containers:
       # [START My container]
       - name: aiq-1-container
-        image: gcr.io/PROJECT_ID/REPOSITORY:COMMIT_SHA
+        image: gcr.io/PROJECT_ID/REPOSITORY:VERSION
         ports:
           - containerPort: 8080
         lifecycle:
