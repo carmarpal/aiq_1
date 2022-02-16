@@ -14,4 +14,4 @@ RUN apt-get update \
 
 USER python
 
-CMD python3.7 ${APP_HOME}manage.py
+CMD python3.7 ${APP_HOME}manage.py runserver
