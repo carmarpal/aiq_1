@@ -12,9 +12,5 @@ ADD . $APP_HOME
 RUN apt-get update \
     && pip install -r requirements.txt
 
-EXPOSE 5000
 USER python
-
-CD $APP_HOME
-
 CMD ["python3.7", "manage.py", "runserver"]
