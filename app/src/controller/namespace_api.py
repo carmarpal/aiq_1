@@ -36,6 +36,6 @@ class DefaultApi(Resource):
         debug = request.args.get('debug', default=False, type=bool)
 
         N, state = request.parsed_obj
-        response = self.plants.process(N=N, state=state)
+        response = self.plants.top_n_plants(N=N, state=state)
 
         return response

@@ -35,33 +35,42 @@ class PlantsService:
         self.plants_df: pd.DataFrame = plants_raw_df[[self.data.state_column, self.data.plant_column, self.data.power_column]].iloc[1:]
         self.state_sum: pd.DataFrame = plants_raw_df[[self.data.state_column, self.data.power_column]].groupby(self.data.state_column).sum().reset_index()
         self.states_listed: list = self.state_sum[self.data.state_column].to_list()
-        # state_raw_df = pd.read_excel(io=data_file, sheet_name=states_sheetname, engine='openpyxl')
-        # self.state_df = state_raw_df[['State abbreviation', 'State annual net generation (MWh)']]
+        state_sum_df = self.plants_df[[self.data.state_column, self.data.power_column]].groupby(self.data.state_column).sum().reset_index()
+        state_sum_df.rename(columns={self.data.power_column: self.data.total_power_state_column}, inplace=True)
+        self.states_listed = state_sum_df[self.data.state_column].to_list()
+        self.result_df = self.plants_df.merge(state_sum_df, how='left', on=[self.data.state_column], suffixes=['', ''])
+        self.result_df[self.data.percentage_column] = self.result_df[self.data.power_column] / self.result_df[self.data.total_power_state_column] * 100
 
     def _state_filter(self, df: pd.DataFrame, state: AnyStr):
-
         if state not in self.states_listed:
             raise HTTPException(message=f'Not valid state requested: {state}', error_code=400)
         filtered = df[df[self.data.state_column] == state]
         return filtered
 
-    def process(self, N: int, state: AnyStr=None):
+    def top_n_plants(self, N: int, state: AnyStr = None):
 
-        df = self.plants_df
+        df = self.result_df
         if state:
             df = self._state_filter(df=df, state=state)
         sorted_df = df.sort_values(by=[self.data.power_column], ascending=False)
         rows, _ = sorted_df.shape
         if N > rows:
             N = rows
-        response = {plant: {'state': state, 'power': power} for state, plant, power in sorted_df.values[:N]}
+        response = {plant: {'state': state, 'power (MWh)': power, "state's percentage": percentage}
+                    for state, plant, power, percentage in
+                    sorted_df[[
+                        self.data.state_column,
+                        self.data.plant_column,
+                        self.data.power_column,
+                        self.data.percentage_column
+                    ]].values[:N]}
         return response
 
     def set_log_level(self, level):
-        log.setLevel(level)
+        logging.setLevel(level)
         stream_handlers = [handler for handler in logging.root.handlers if isinstance(handler, logging.StreamHandler)]
         for stream_handler in stream_handlers:
             stream_handler.setLevel(level)
 
     def get_log_level(self):
-        return log.getEffectiveLevel()
+        return logging.getEffectiveLevel()
