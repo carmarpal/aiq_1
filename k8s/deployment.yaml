@@ -6,7 +6,6 @@ metadata:
   labels:
     app: aiq-1
     project: PROJECT_ID
-    commit_sha: COMMIT_SHA
 spec:
   replicas: 1
   minReadySeconds: 5
