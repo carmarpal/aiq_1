@@ -8,7 +8,7 @@ ENDPOINTS_NAME="aiq-1"
 ENDPOINTS_SERVICE_NAME="${ENDPOINTS_NAME}.endpoints.${PROJECT_ID}.cloud.goog"
 
 JKEY="{.status.loadBalancer.ingress[].ip}"
-SERVICE_NAME="aiq-1-service-lb"
+SERVICE_NAME="aiq-1"
 SERVICE_IP=$(kubectl get svc ${SERVICE_NAME} -o jsonpath=${JKEY})
 
 sed "s/ENDPOINTS_SERVICE_NAME/${ENDPOINTS_SERVICE_NAME}/g" openapi.yaml > /tmp/openapi.yaml

@@ -13,4 +13,5 @@ RUN apt-get update \
     && pip install -r requirements.txt
 
 USER python
-CMD python3.7 ${APP_HOME}manage.py runserver
+
+CMD python3.7 ${APP_HOME}manage.py

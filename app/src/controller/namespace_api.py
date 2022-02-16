@@ -20,7 +20,7 @@ class server_check(Resource):
         return "OK!" + now.upper()
 
 # Blank route, so the final uri is /default
-@ns.route('/top-n-plants')
+@ns.route('/service')
 class DefaultApi(Resource):
     PlantsService: PlantsService
 

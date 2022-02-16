@@ -1,7 +1,7 @@
 # [START swagger]
 swagger: "2.0"
 info:
-  title: "My AIQ API"
+  title: "AIQ API"
   version: "1.0.0"
   description: "Endpoints API."
 host: "ENDPOINTS_SERVICE_NAME"
@@ -19,7 +19,7 @@ schemes:
 paths:
   "/check":
     get:
-      description: "alive API"
+      description: "alive function"
       operationId: "aliveMessage"
       parameters: []
       produces:
@@ -31,17 +31,17 @@ paths:
             type: string
       security:
         - api_key: []
-  "/top-n-plants":
+  "/service":
     post:
-      description: "top-n-plants"
+      description: "service function"
       operationId: "process"
       responses:
         200:
-          description: "plants"
+          description: "top n plants"
           schema:
             $ref: "#/definitions/prediction"
       parameters:
-      - description: "Number and State"
+      - description: "JSON format"
         in: body
         name: message
         required: true
@@ -119,9 +119,9 @@ securityDefinitions:
     flow: "implicit"
     type: "oauth2"
     # Replace YOUR-SERVICE-ACCOUNT-EMAIL with your service account email.
-    x-google-issuer: "carlos13eds@gmail.com"
+    x-google-issuer: "carlos@jovial-arch-341408.iam.gserviceaccount.com"
     # Replace YOUR-SERVICE-ACCOUNT-EMAIL with your service account email.
-    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/carlos13eds@gmail.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/carlos@jovial-arch-341408.iam.gserviceaccount.com"
     # This must match the "aud" field in the JWT. You can add multiple audiences to accept JWTs from multiple clients.
     x-google-audiences: "echo.endpoints.sample.google.com"
   # This section configures authentication using Google OAuth2 ID Tokens.
