@@ -13,8 +13,6 @@ steps:
       - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:latest'
       - '-t'
       - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:${_VERSION}'
-      - '--cache-from'
-      - 'gcr.io/${_PROJECT_ID}/${_REPOSITORY}:latest'
       - '.'
       - '--network'
       - 'cloudbuild'
