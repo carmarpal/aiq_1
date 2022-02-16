@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aiq-1-deployment
+  name: aiq-1
   namespace: default
   labels:
-    app: aiq-1-api
+    app: aiq-1
     project: PROJECT_ID
     commit_sha: COMMIT_SHA
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 5
   strategy:
     type: RollingUpdate
@@ -17,16 +17,16 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: aiq-1-api
+      app: aiq-1
   template:
     metadata:
-      name: aiq-1-pod
+      name: aiq-1
       labels:
-        app: aiq-1-api
+        app: aiq-1
     spec:
       containers:
       # [START My container]
-      - name: aiq-1-container
+      - name: aiq-1
         image: gcr.io/PROJECT_ID/REPOSITORY:VERSION
         ports:
           - containerPort: 8080

@@ -21,7 +21,7 @@ gcloud container clusters create $_CLUSTER \
 kubectl get nodes,pods,svc
 
 # get service external ip
-SERVICE_NAME="ml-service-lb"
+SERVICE_NAME="aiq-1-service-lb"
 kubectl get svc ${SERVICE_NAME} -o jsonpath={.status.loadBalancer.ingress[].ip}
 
 # check pods state every 0.5 seconds

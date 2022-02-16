@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aiq-1-service-lb
+  name: aiq-1
   namespace: default
   labels:
-    app: aiq-1-api
+    app: aiq-1
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 5000
     targetPort: 8081
   selector:
-    app: aiq-1-api
+    app: aiq-1
