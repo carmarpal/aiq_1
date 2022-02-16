@@ -119,9 +119,9 @@ securityDefinitions:
     flow: "implicit"
     type: "oauth2"
     # Replace YOUR-SERVICE-ACCOUNT-EMAIL with your service account email.
-    x-google-issuer: "carlos@hocelotest.iam.gserviceaccount.com"
+    x-google-issuer: "carlos13eds@gmail.com"
     # Replace YOUR-SERVICE-ACCOUNT-EMAIL with your service account email.
-    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/carlos@hocelotest.iam.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/carlos13eds@gmail.com"
     # This must match the "aud" field in the JWT. You can add multiple audiences to accept JWTs from multiple clients.
     x-google-audiences: "echo.endpoints.sample.google.com"
   # This section configures authentication using Google OAuth2 ID Tokens.
