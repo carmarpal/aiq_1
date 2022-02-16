@@ -4,11 +4,11 @@
 # gcloud init --skip-diagnostics
 
 PROJECT_ID=$(gcloud config get-value project)
-ENDPOINTS_NAME="aiq_1"
+ENDPOINTS_NAME="aiq-1"
 ENDPOINTS_SERVICE_NAME="${ENDPOINTS_NAME}.endpoints.${PROJECT_ID}.cloud.goog"
 
 JKEY="{.status.loadBalancer.ingress[].ip}"
-SERVICE_NAME="aiq-q-service-lb"
+SERVICE_NAME="aiq-1-service-lb"
 SERVICE_IP=$(kubectl get svc ${SERVICE_NAME} -o jsonpath=${JKEY})
 
 sed "s/ENDPOINTS_SERVICE_NAME/${ENDPOINTS_SERVICE_NAME}/g" openapi.yaml > /tmp/openapi.yaml
