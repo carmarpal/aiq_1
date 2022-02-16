@@ -12,6 +12,5 @@ ADD . $APP_HOME
 RUN apt-get update \
     && pip install -r requirements.txt
 
-EXPOSE 8080
 USER python
 CMD python3.7 ${APP_HOME}manage.py runserver
