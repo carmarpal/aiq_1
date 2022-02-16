@@ -9,13 +9,13 @@ class RequestSchema(Schema):
         unknown = INCLUDE
 
     # Schema
-    N = fields.Integer(required=False)
-    state = fields.String(required=False)
+    N = fields.Integer(required=True)
+    State = fields.String(required=False)
     @post_load
     def make(self, data, **kwargs):
         N = data['N']
-        state = data['state']
-        return N, state
+        State = data['State'] if 'State' in data.keys() else None
+        return N, State
 
 
 # Response marshmallow json response
