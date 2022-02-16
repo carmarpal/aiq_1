@@ -14,4 +14,4 @@ RUN apt-get update \
 
 EXPOSE 5000
 USER python
-CMD python3.7 {$APP_HOME}manage.py runserver
+CMD python3.7 ${APP_HOME}manage.py runserver

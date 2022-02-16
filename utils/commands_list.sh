@@ -29,7 +29,7 @@ kubectl get svc ${SERVICE_NAME} -o jsonpath={.status.loadBalancer.ingress[].ip}
 watch -n 0.5 kubectl get pods
 
 # check rollout status of a new deployment
-kubectl rollout status deployment/ml-deployment
+kubectl rollout status deployment/aiq-1
 
 # delete cluster
 gcloud container clusters delete $_CLUSTER --zone $_ZONE

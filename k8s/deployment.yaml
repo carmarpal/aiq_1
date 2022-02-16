@@ -30,13 +30,17 @@ spec:
         image: gcr.io/PROJECT_ID/REPOSITORY:VERSION
         ports:
           - containerPort: 8080
+        lifecycle:
+          preStop:
+            exec:
+              command: [ "sh", "-c", "sleep 5" ]
         readinessProbe:
           initialDelaySeconds: 5
           periodSeconds: 5
           successThreshold: 1
           httpGet:
             path: /check
-            port: 5000
+            port: 8080
       # [END My container]
       # [START Extensible Service Proxy (ESP)]
       - name: esp
