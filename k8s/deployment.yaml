@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: aiq-1
@@ -47,7 +47,7 @@ spec:
         args: [
           "--http_port", "8081",
           "--backend", "127.0.0.1:8080",
-          "--service", "SERVICE_NAME.endpoints.PROJECT_ID.cloud.goog",
+          "--service", "aiq-1.endpoints.PROJECT_ID.cloud.goog",
           "--rollout_strategy", "managed",
         ]
         ports:
