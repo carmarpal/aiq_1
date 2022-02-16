@@ -16,7 +16,6 @@ RUN apt-get update \
     && pip3 install -r requirements.txt \
     && apt-get purge -y --auto-remove gcc python3.7-dev git
 
-
 EXPOSE 5000
 USER python
 CMD python3.7 ${APP_HOME}manage.py runserver
