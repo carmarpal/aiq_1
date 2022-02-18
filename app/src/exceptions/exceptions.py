@@ -16,7 +16,6 @@ class HTTPException(Exception):
 
     def handle_error(self):
         from flask import jsonify
-        message = [str(x) for x in self.args]
         response = {
             'class': self.__class__.__name__,
             'message': self.message,

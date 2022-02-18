@@ -1,26 +1,29 @@
 import logging
 import injector
 from datetime import datetime
-from flask import request, jsonify
-from flask_accepts import responds, accepts
+from flask import request
+from flask_accepts import accepts
 from flask_restplus import Resource, Namespace
-from marshmallow import ValidationError
 
-from app.src.model.model import RequestSchema, ResponseSchema
+from app.src.model.model import RequestSchema
 from app.src.service.plantsservice import PlantsService
 
-# Namespace of resource f.e in this case /default, all the routes under this ns would have /default as prefix
+# Namespace of resource
 ns = Namespace('', description='API')
-log = logging.getLogger(__name__)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="(asctime)s: %(name)s %(levelname)s %(message)s",
+    datefmt="%m-%d %H: %M"
+)
 
+# health GET endpoint
 @ns.route('/check', methods=['GET'])
 class server_check(Resource):
     def get(self):
         now = datetime.now().strftime('%d/%b/%Y - %H:%M:%S.%f\n')
         return "OK!" + now.upper()
 
-# Blank route, so the final uri is /default
 @ns.route('/service')
 class DefaultApi(Resource):
     PlantsService: PlantsService
