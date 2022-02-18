@@ -34,7 +34,7 @@ steps:
         sed -i "s/PROJECT_ID/${_PROJECT_ID}/g" k8s/deployment.yaml && \
         sed -i "s/REPOSITORY/${_REPOSITORY}/g" k8s/deployment.yaml && \
         sed -i "s/VERSION/${_VERSION}/g" k8s/deployment.yaml && \
-        sed -i "s/SERVICE_NAME/aiq-1/g" k8s/deployment.yaml
+        sed -i "s/SERVICE_NAME/${_SERVICE_NAME}/g" k8s/deployment.yaml
   # apply k8s manifest to my cluster
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
@@ -50,4 +50,5 @@ options:
 substitutions:
   _PROJECT_ID: jovial-arch-341408
   _REPOSITORY: aiq-1
-  _VERSION: '1.0.4'
+  _SERVICE_NAME: aiq-1
+  _VERSION: '1.1.0'

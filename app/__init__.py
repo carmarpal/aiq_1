@@ -1,11 +1,14 @@
-import logging
+from typing import AnyStr
 import logging.config
 from .src import blueprint
 
 log = logging.getLogger(__name__)
 
 
-def create_app(config_file_path='resources/application-test.yml'):
+def create_app(config_file_path:AnyStr='resources/application-test.yml'):
+    """
+    creates a flask api from a config file
+    """
     from flask import Flask
     import yaml
 

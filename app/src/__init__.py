@@ -17,7 +17,6 @@ def handle_error(error):
 # Add namespaces to swagger
 api = Api(blueprint)
 
-# TODO Change
 from .controller.namespace_api import ns
 
 api.add_namespace(ns)
