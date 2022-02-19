@@ -77,11 +77,12 @@ class DefaultApi(Resource):
     <...>
     @accepts(api=ns, schema=RequestSchema())
     def post(self):
-            <...>
-    
+        N, state = request.parsed_obj
+        response = self.plants.top_n_plants(N=N, state=state)
+        return response
 ```
 
-The accepts decorator will check the input schema as defined in RequesSchema
+The accepts decorator will check the input schema as defined in RequestSchema
 
 ```python
 class RequestSchema(Schema):
@@ -116,8 +117,14 @@ CMD python3.7 ${APP_HOME}manage.py runserver
 
 I choose a small operating system to build images faster and put the less prone to changes layers in the beginning.
 In `requirements.txt` I put the necessary packages and its respective versions to execute my application.
+The `CMD` command will be the one that runs when the container starts.
 
 
+#Cloud Deployment (GCP)
+
+To deploy this application in GKE I have created a CI/CD pipeline that builds the Docker images and executes 
+some deployment files.
+The deployment file is `cloudbuild.yaml`
 
 ## The `cloudbuild.yaml`
 
@@ -201,27 +208,12 @@ steps:
       - 'k8s/'
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=southamerica-east1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=aiq'```
+      - 'CLOUDSDK_CONTAINER_CLUSTER=aiq'
 ```
 
-##DEPLOYMENT 
+#### Create a Google Cloud Endpoint service
 
-### Step 1: Copy my repository to your own repository
-
-Clone this repository in the cloud console.
-
-### Step 2: Create a Google Cloud Build trigger to this new repository
-
-Create a cloud build trigger connected to your GitHub repository and set cloudbuild.yaml as the deployment file.
-
-
-### Step 3: Push the repository
-
-Now, to deploy the application you just have to make a `git push`. 
-
-###  Step 4: Create a Google Cloud Endpoint service
-
-Once you are inside the project folder, you just have to execute the command below.
+It is required to create an endpoint,  you just have to execute the command below.
 
 ```bash
 # enter in endpoint folder, execute a script and return to project folder
@@ -229,10 +221,10 @@ cd endpoint && \
 source endpoint-config.sh && \
 cd ..
 ```
-
-### Step 5: Create an API key
-
-I have created an API Key to protect the API.
+`endpoint-config.sh` basically get some parameters such as `SERVICE_NAME` and `SERVICE_IP` to 
+execute commands that creates and enable the endpoint that exposes the service configured in `service.yaml`.
 
 
+## Security: Create an API key
 
+I have created an API Key to protect the Service.

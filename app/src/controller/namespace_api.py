@@ -34,9 +34,8 @@ class DefaultApi(Resource):
         self.plants = plants
 
     @accepts(api=ns, schema=RequestSchema())  # Swagger representation fixed in next version of flask_accepts(0.15.5)
-    #@responds(schema=ResponseSchema, validate=True, api=ns, status_code=200)
+
     def post(self):
-        debug = request.args.get('debug', default=False, type=bool)
 
         N, state = request.parsed_obj
         response = self.plants.top_n_plants(N=N, state=state)
