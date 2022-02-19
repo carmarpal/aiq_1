@@ -1,4 +1,4 @@
-# AIQ2 API deployment pipeline in GKE using Google Cloud Endpoints (OpenAPI version)
+# AIQ1 API deployment pipeline in GKE using Google Cloud Endpoints (OpenAPI version)
 
 ````
 aiq_1/
@@ -37,6 +37,13 @@ aiq_1/
             └── service.py
 
 ````
+
+## Application
+
+This application exposes a service that returns the top U.S N plants in termns of power
+produced in 2016, State filter optional.
+
+
 ## Flask application
 
 The Flask app is managed by the manage.py python file, that will load the application from a create_app method that 
@@ -228,3 +235,40 @@ execute commands that creates and enable the endpoint that exposes the service c
 ## Security: Create an API key
 
 I have created an API Key to protect the Service.
+
+
+## Run locally
+
+It is possible to run the application locally, you just have to clone this repo, create a venv and install the requirements (`python3.7`), then
+execute `pyhon manage.py runserver`, and it will run the application in your localhost.
+
+To test it, you can make some request, let's try the ``/check`` endpoint with:
+
+```
+curl --request GET \
+  --url http://localhost:8080/check
+```
+
+response:
+```"OK!dd/mm/yyyy - H:M:S"```
+
+``/service`` endpoint
+
+```
+curl --request POST \
+  --url http://localhost:8080/service \
+  --header 'Content-Type: application/json' \
+  --data '{"N":2, "State":"AZ"}'
+```
+
+It will return the top 2 (N=2) plants of the "AZ" State
+
+##Test in Cloud environment
+**IMPORTANT:** API Key authentication required, please contact the project's developer for more information
+
+```
+curl --request POST \
+  --url 'http://34.95.206.233/service?key=<API_KEY>' \
+  --header 'Content-Type: application/json' \
+  --data '{"N":200, "State":"AK"}'
+```
